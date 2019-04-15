@@ -1,0 +1,2331 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Lyon\_Air\_Quality}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \#
+
+Lyon's Air Quality
+
+By Junholv OBO
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}719}]:} \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{HTML}\PY{p}{,} \PY{n}{Image}\PY{p}{,} \PY{n}{YouTubeVideo}\PY{p}{,} \PY{n}{display}
+          \PY{n}{Image}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://venissieuxinfos.fr/wp\PYZhy{}content/uploads/20170403\PYZus{}nouveau\PYZhy{}metroB\PYZhy{}exterieur\PYZus{}alstom.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mi}{600}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}719}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_1_0.jpeg}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    La dernière étude publiée sur la qualité de l'air dans le métro de Lyon
+date de 2002.
+
+Cela fait donc plus de 17 ans que plus rien n'avait était rendus public.
+J'ai pu remarquer sur beaucoups de réseaux sociaux, certains sans cesse
+n'hésitaient pas à interpeller les autorité regulatrice tel que Sytral
+ou un exploitant comme Keolis sur cette situation.
+
+Depuis mon arrivé sur Paris, j'ai rémarquer que mal-grès que la ville ne
+plaît pas forcément, certaines informations était mis à dispotion au
+contribuable.
+
+En effet, cette abscence d'informations s'est sentis à chaque fois que
+la RATP communiquait leurs données sur le métro parisien; et non TCL à
+leurs usagers lyonnais.
+
+De plus, une transparence assujetti en Avril 2018, par la mise en place
+d'une API permettant de connaître la qualité de l'air dans trois
+stations: http://www.iseo.fr/ratp/RATP.php.
+
+En parallèle, des réseaux de transports en commun comme celui de Lyon se
+sont mis au travail de manière coordonnée pour étudier la compostion de
+la pollution et particules dans je cite : ``Les enceintes ferroviaires
+souterraines''.
+
+Depuis 2015, le ministère de l'Environnement et l'INERIS (Institut
+National de l'Environnement Industriel et des Risques) ont lancé un
+travail sur un protocole d'expérimentation commun. Le Sytral et Keolis
+ont participé à une phase expérimentale de mesures en 2017. Deux types
+de mesures ont alors été réalisées:
+
+-en mars 2017, des mesures des particules fines PM10 (inférieur à 10
+micromètres, en comparaison un cheveu fait en moyenne 75 micromètre de
+diamètre) ont été éffectuées durant 15 minutes dans chaque station en
+heure de pointe, matin et soir.
+
+-en juin 2017, des meures ont été réalisée en cotninu durant deux
+semaines sur le quai de la ligne B de la station Saxe-Gambetta, avec une
+semaine pour les particules fines PM10 et une semaine pour les
+particules très fines PM2.5 (inférieures à 2,5 micromètres).
+Contrairement à celles de mars 2017, ces mesures en continu permettent
+de voir les variations dans le temps.
+
+Aujourd'hui, le Sytral a accepté de transmettre l'ensemble de ces
+mesures, que j'ai décidé de mettre en exergue avec une étude pour vous.
+
+Vous devez savoir, que ces particules fines PM10 et très fines PM2.5 ne
+sont pas présentes uniquement dans le réseau métro, mais bien dans l'air
+ambiant, partout où nous respirons. Leur concentration dépend de
+plusieurs facteurs, tout comme leurs composition qui peut être très
+varié (particules rejtées par les voitures, résidus de freinage, pneus,
+chauffage, composés organiques, cendres \ldots{}). Donc inutile de
+charger sur Sytral ou Keolis après mon étude.
+
+Ainsi, selon le Sytral, \textbf{``les niveaux d'empoussièrement sont
+directement liés à la fréquence du passage du métro''. Quant à leur
+nature, ``Les particules métalliques analysées à la station Saxe sont
+composées à 88 \% de fer. Contrairement à l'air ambiant où les
+particules proviennent majoritairement du trafic automobile, la
+pollution des enceintes ferroviaires est issue principalement du
+roulement et de l'usure des matériaux en frottement du matériel
+roulant''.}
+
+Plus ces particules sont petites, plus elles peuvent pénétrer loin dans
+l'organisme. Selon le Centre international de recherche sur le cancer
+(CIRC), ``6 à 11 \% des décès par cancer du poumon seraient attribuables
+à l'exposition chronique aux particules fines''. Les particules fines
+peuvent être également à l'origine de maladie pulmonaire,
+cardio-vasculaire et être un facteur aggravant chez certaines personne
+
+En France, selon le code de l'environnement, les valeurs limites pour la
+protection de la santé en matière de PM10 sont de 50 µg/m³ en moyenne
+sur 24 heures (à ne pas dépasser plus de trente-cinq fois par année
+civile ) et 40 µg/ m³ en moyenne annuelle civile. L'objectif de qualité
+est de 30 µg/ m³ en moyenne annuelle. Pour les PM2.5, les valeurs
+limites sont de 25 µg/m³ en moyenne annuelle, l'objectif de qualité
+étant à 10 µg/m³.
+
+Dans tous les cas, ces limites basées sur des moyennes ne concernent pas
+la seule exposition dans les transports en commun, mais bien celle lors
+de l'ensemble de la journée. Les voyageurs ne passent que quelques
+minutes dans le réseau métro, quand le personnel travaillant à
+l'intérieur est forcément plus exposé, car présent plus longtemps. Selon
+le Sytral : "Le Conseil Supérieur d'Hygiène publique de France (CSHPF) a
+publié en 2001 un avis selon lequel ces valeurs (celles de la loi) ne
+sont pas applicables dans les enceintes ferroviaires souterraines. Le
+Conseil a proposé une méthode de calcul afin d'établir un seuil de
+concentration limite en PM10 (Csout) en moyenne horaire, basé sur la
+notion d'exposition cumulée dans l'air ambiant extérieur et à
+l'intérieur des enceintes de métro, et respectant la valeur limite
+journalière.
+
+    The last published study on air quality in the Lyon metro was published
+in 2002.
+
+It has therefore been more than 17 years since nothing has been made
+public. I have noticed on many social networks, some of them did not
+hesitate to question regulatory authorities such as Sytral or an
+operator such as Keolis about this situation.
+
+Since my arrival in Paris, I have noticed that despite the fact that the
+city does not necessarily like it, some information was made available
+to the taxpayer.
+
+Indeed, this lack of information was felt every time; RATP communicated
+their data on the Parisian metro; not TCL to their Lyon's users.
+
+In addition, transparency will be required in April 2018, through the
+implementation of an API to determine air quality in three stations:
+http://www.iseo.fr/ratp/RATP.php.
+
+In parallel, public transport networks such as the one in Lyon have
+started working in a coordinated way to study the composition of
+pollution and particles and I quote: ``Underground railway enclosures''.
+
+Since 2015, the Ministry of the Environment and INERIS (Institut
+National de l'Environnement Industriel et des Risques) have been working
+on a common experimental protocol. Le Sytral and Keolis participated in
+an experimental phase of measurements in 2017. Two types of measurements
+were then carried out:
+
+-In March 2017, measurements of fine particulate matter PM10 (less than
+10 micrometers, compared to a hair with an average diameter of 75
+micrometers) were taken for 15 minutes at each station during peak
+hours, morning and evening.
+
+-In June 2017, measurements were taken in cotninu for two weeks on the
+platform of line B of the Saxe-Gambetta station, with one week for fine
+particles PM10 and one week for very fine particles PM2.5 (less than 2.5
+micrometers). Unlike those of March 2017, these continuous measurements
+allow us to see variations over time.
+
+Today, Sytral has agreed to transmit all these measures, which I have
+decided to highlight with a study for you.
+
+You should know that these fine particles PM10 and very fine PM2.5 are
+not only present in the metro network, but also in the ambient air,
+wherever we breathe. Their concentration depends on several factors, as
+well as their composition, which can be very varied (particles emitted
+by cars, brake residues, tires, heating, organic compounds, ashes,
+etc.). So there's no need to attack Sytral or Keolis after my study
+please ..
+
+Thus, according to the Sytral, \textbf{``dust levels are directly
+related to the frequency of the metro's passage''. As for their nature,
+``The metal particles analysed at the Saxony station are 88\% iron.
+Unlike ambient air, where particles mainly come from motor traffic,
+pollution in railway enclosures is mainly due to rolling and wear and
+tear on the friction materials of rolling stock''.}
+
+The smaller these particles are, the farther they can penetrate the
+body. According to the International Agency for Research on Cancer
+(IARC), ``6 to 11\% of lung cancer deaths are due to chronic exposure to
+fine particles''. Fine particles can also cause lung disease,
+cardiovascular disease and be an aggravating factor in some people.
+
+In France, according to the French Environmental Code, the limit values
+for health protection of PM10 are 50 µg/m³ on average over 24 hours (not
+to be exceeded more than 35 times per calendar year) and 40 µg/m³ on
+average per calendar year. The quality objective is 30 µg/m³ as an
+annual average. For PM2.5, the limit values are 25 µg/m³ as an annual
+average, the quality objective being 10 µg/m³.
+
+In any case, these average-based limits do not only apply to exposure in
+public transport, but also to exposure throughout the day. Travellers
+spend only a few minutes in the metro system, when staff working indoors
+are necessarily more exposed because they are present longer. According
+to Le Sytral: "In 2001, the Conseil Supérieur d'Hygiène Publique de
+France (CSHPF) published an opinion to the effect that these values
+(those of the law) are not applicable in underground railways. The
+Council proposed a calculation method to establish a threshold limit
+concentration of PM10 (Csout) as an hourly average, based on the concept
+of cumulative exposure in outdoor ambient air and inside metro
+enclosures, and respecting the daily limit value.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}720}]:} \PY{c+c1}{\PYZsh{}Pandas library}
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}721}]:} \PY{c+c1}{\PYZsh{}Nous ne savons pas a quoi va ressembler la datframe autant mettre des fonctions permet de tout voir}
+          \PY{c+c1}{\PYZsh{}This function is for watch all dataframe row and column}
+          
+          \PY{n}{pd}\PY{o}{.}\PY{n}{set\PYZus{}option}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{display.max\PYZus{}rows}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{k+kc}{None}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{display.max\PYZus{}columns}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{k+kc}{None}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} me montre toutes mes columns de ma df (df = dataframe)}
+          \PY{c+c1}{\PYZsh{}me montre tout les ligne de macolumn ma df (df = dataframe)}
+          \PY{c+c1}{\PYZsh{}None designe le nombre d\PYZsq{}element maximum, dans mon cas aucune limite}
+          \PY{c+c1}{\PYZsh{}Nous aurions pu le remplacer par un chiffre.}
+\end{Verbatim}
+
+
+    \hypertarget{recuperons-nos-data-en-dataframe}{%
+\subsection{Recuperons nos Data en
+dataframe}\label{recuperons-nos-data-en-dataframe}}
+
+\hypertarget{well-get-our-data-back}{%
+\subsection{We'll get our Data back}\label{well-get-our-data-back}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}722}]:} \PY{c+c1}{\PYZsh{}Ligne de Metro}
+          \PY{c+c1}{\PYZsh{}Subway\PYZsq{}s line}
+          \PY{n}{dfLigneA} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Data/Dirty/LigneA.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{;}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{dfLigneB} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Data/Dirty/LigneB.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{;}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{dfLigneC} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Data/Dirty/LigneC.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{;}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{dfLigneD} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Data/Dirty/LigneD.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{;}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}Station metro}
+          \PY{c+c1}{\PYZsh{}Subway\PYZsq{}s stop}
+          \PY{n}{dfStationSaxe\PYZus{}PM10} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Data/Dirty/Station Saxe\PYZhy{}Gambetta PM10.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{;}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{dfStationSaxePM2\PYZus{}5} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Data/Dirty/Station Saxe\PYZhy{}Gambetta PM2.5.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{;}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}Finiculaire}
+          \PY{c+c1}{\PYZsh{}Finicular}
+          \PY{n}{dfFuniculaireSaintJus} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Data/Dirty/Funiculaire Saint\PYZhy{}Just.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{;}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{dfFuniculaireFourviere} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Data/Dirty/Funiculaire Fourviere.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{;}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{ligne-de-metro}{%
+\section{Ligne de Metro}\label{ligne-de-metro}}
+
+\hypertarget{subways-line}{%
+\section{Subway's line}\label{subways-line}}
+
+    \hypertarget{dflignea}{%
+\subsubsection{dfLigneA}\label{dflignea}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}723}]:} \PY{n}{dfLigneA}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}723}]:}   Station (Matin / Soir)  PM10 µg/m³
+          0                Moyenne         107
+          1              La soie s         166
+          2              La soie m         145
+          3     Laurent Bonnevay s         112
+          4     Laurent Bonnevay m         155
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}724}]:} \PY{c+c1}{\PYZsh{}Ici la fonction apply remplace tout mes Oui par 1 et Non par 0}
+          \PY{o}{\PYZpc{}}\PY{k}{timeit}
+          
+          \PY{n}{dfLigneA} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Data/Dirty/LigneA.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{;}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}New column = Take the last letter of my column }
+          \PY{n}{dfLigneA}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin/Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfLigneA}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Station (Matin / Soir)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}Column Matin}
+          \PY{n}{dfLigneA}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfLigneA}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin/Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+m+mi}{1} \PY{k}{if} \PY{n}{x}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}} \PY{k}{else} \PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{dfLigneA}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfLigneA}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)} \PY{c+c1}{\PYZsh{}Column Matin become a column in int format }
+          
+          \PY{c+c1}{\PYZsh{}Column Soir}
+          \PY{n}{dfLigneA}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfLigneA}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin/Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+m+mi}{1} \PY{k}{if} \PY{n}{x}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}} \PY{k}{else} \PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{dfLigneA}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfLigneA}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}\PY{c+c1}{\PYZsh{}Column Soir become a column in int format }
+          
+          \PY{c+c1}{\PYZsh{}Column Station}
+          \PY{n}{dfLigneA}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Station}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfLigneA}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Station (Matin / Soir)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}Supprimer la première ligne par l\PYZsq{}index}
+          \PY{n}{dfLigneA}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}reindex}
+          \PY{n}{dfLigneA} \PY{o}{=} \PY{n}{dfLigneA}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}remove unnecessary column}
+          \PY{k}{del} \PY{n}{dfLigneA}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Station (Matin / Soir)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{k}{del} \PY{n}{dfLigneA}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin/Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}Change order of my column}
+          \PY{n}{dfLigneA} \PY{o}{=} \PY{n}{dfLigneA}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Station}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PM10 µg/m³}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Matin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soir}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          
+          
+          \PY{n}{dfLigneA}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/Users/Administrateur/Documents/ML/Mes projet/lyon/Qualiter\PYZus{}Air/Data/Clean/LigneA.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{;}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{dfLigneA}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}724}]:}               Station  PM10 µg/m³  Matin  Soir
+          0           La soie s         166      0     0
+          1           La soie m         145      0     0
+          2  Laurent Bonnevay s         112      0     0
+          3  Laurent Bonnevay m         155      0     0
+          4            Cusset s         106      0     0
+\end{Verbatim}
+            
+    \hypertarget{dfligneb}{%
+\subsubsection{dfLigneB}\label{dfligneb}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}725}]:} \PY{n}{dfLigneB}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}725}]:}         Station  PM10  µg/m³
+          0       Moyenne           95
+          1  Charpennes s           80
+          2  Charpennes m          134
+          3   Brotteaux s           74
+          4   Brotteaux m          116
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}726}]:} \PY{n}{dfLigneB} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Data/Dirty/LigneB.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{;}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}New column = Take the last letter of my column }
+          \PY{n}{dfLigneB}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin/Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfLigneB}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Station}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}Column Matin}
+          \PY{n}{dfLigneB}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfLigneB}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin/Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+m+mi}{1} \PY{k}{if} \PY{n}{x}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}} \PY{k}{else} \PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{dfLigneB}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfLigneB}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}Column Soir}
+          \PY{n}{dfLigneB}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfLigneB}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin/Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+m+mi}{1} \PY{k}{if} \PY{n}{x}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}} \PY{k}{else} \PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{dfLigneB}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfLigneB}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+          
+          
+          \PY{c+c1}{\PYZsh{}Supprimer la première ligne par l\PYZsq{}index}
+          \PY{n}{dfLigneB}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+          \PY{k}{del} \PY{n}{dfLigneB}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin/Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}reindex }
+          \PY{n}{dfLigneB} \PY{o}{=} \PY{n}{dfLigneB}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{n}{dfLigneB}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/Users/Administrateur/Documents/ML/Mes projet/lyon/Qualiter\PYZus{}Air/Data/Clean/LigneB.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{;}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{dfLigneB}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}726}]:}         Station  PM10  µg/m³  Matin  Soir
+          0  Charpennes s           80      0     1
+          1  Charpennes m          134      1     0
+          2   Brotteaux s           74      0     1
+          3   Brotteaux m          116      1     0
+          4   Part-Dieu s          111      0     1
+\end{Verbatim}
+            
+    \hypertarget{dflignec}{%
+\subsubsection{dfLigneC}\label{dflignec}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}727}]:} \PY{n}{dfLigneC}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}727}]:}           Station  PM10   µg/ m³
+          0         Moyenne             46
+          1         Hénon s             26
+          2         Hénon m             29
+          3  Croix-Rousse s             40
+          4  Croix-Rousse m             43
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}728}]:} \PY{n}{dfLigneC} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Data/Dirty/LigneC.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{;}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}New column = Take the last letter of my column }
+          \PY{n}{dfLigneC}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin/Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfLigneC}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Station}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}Column Matin}
+          \PY{n}{dfLigneC}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfLigneC}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin/Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+m+mi}{1} \PY{k}{if} \PY{n}{x}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}} \PY{k}{else} \PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{dfLigneC}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfLigneC}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}Column Soir}
+          \PY{n}{dfLigneC}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfLigneC}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin/Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+m+mi}{1} \PY{k}{if} \PY{n}{x}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}} \PY{k}{else} \PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{dfLigneC}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfLigneC}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}Column Station}
+          \PY{c+c1}{\PYZsh{}dfLigneC[\PYZdq{}Station\PYZdq{}] = dfLigneC[\PYZdq{}Station\PYZdq{}]}
+          
+          \PY{c+c1}{\PYZsh{}Supprimer la première ligne par l\PYZsq{}index}
+          \PY{n}{dfLigneC}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+          \PY{k}{del} \PY{n}{dfLigneC}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin/Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}reindex }
+          \PY{n}{dfLigneC} \PY{o}{=} \PY{n}{dfLigneC}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{n}{dfLigneC}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/Users/Administrateur/Documents/ML/Mes projet/lyon/Qualiter\PYZus{}Air/Data/Clean/LigneC.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{;}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{dfLigneC}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}728}]:}             Station  PM10   µg/ m³  Matin  Soir
+          0           Hénon s             26      0     1
+          1           Hénon m             29      1     0
+          2    Croix-Rousse s             40      0     1
+          3    Croix-Rousse m             43      1     0
+          4  Hôtel de ville s             93      0     1
+\end{Verbatim}
+            
+    \hypertarget{dfligned}{%
+\subsection{dfLigneD}\label{dfligned}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}729}]:} \PY{n}{dfLigneD} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Data/Dirty/LigneD.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{;}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}New column = Take the last letter of my column }
+          \PY{n}{dfLigneD}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin/Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfLigneD}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Station}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}Column Matin}
+          \PY{n}{dfLigneD}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfLigneD}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin/Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+m+mi}{1} \PY{k}{if} \PY{n}{x}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}} \PY{k}{else} \PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{dfLigneD}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfLigneD}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}Column Soir}
+          \PY{n}{dfLigneD}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfLigneD}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin/Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+m+mi}{1} \PY{k}{if} \PY{n}{x}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}} \PY{k}{else} \PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{dfLigneD}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfLigneD}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}Column Station}
+          \PY{c+c1}{\PYZsh{}dfLigneD[\PYZdq{}Station\PYZdq{}] = dfLigneD[\PYZdq{}Station\PYZdq{}].str[:\PYZhy{}1]}
+          
+          \PY{c+c1}{\PYZsh{}Supprimer la première ligne par l\PYZsq{}index}
+          \PY{n}{dfLigneD}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+          \PY{k}{del} \PY{n}{dfLigneD}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin/Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}reindex }
+          \PY{n}{dfLigneD} \PY{o}{=} \PY{n}{dfLigneD}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{n}{dfLigneD}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/Users/Administrateur/Documents/ML/Mes projet/lyon/Qualiter\PYZus{}Air/Data/Clean/LigneD.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{;}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{n}{dfLigneD}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}729}]:}            Station  PM10  µg/m³  Matin  Soir
+          0  Gare de Vaise s           74      0     1
+          1  Gare de Vaise m          104      1     0
+          2          Valmy s          130      0     1
+          3          Valmy m          129      1     0
+          4  Gorge de Loup s          105      0     1
+\end{Verbatim}
+            
+    \hypertarget{station-metro}{%
+\section{Station metro}\label{station-metro}}
+
+\hypertarget{subways-stop}{%
+\section{Subway's stop}\label{subways-stop}}
+
+    \hypertarget{station-saxe-pm10}{%
+\subsubsection{Station Saxe PM10}\label{station-saxe-pm10}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}730}]:} \PY{n}{dfStationSaxe\PYZus{}PM10}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+          \PY{n}{dfStationSaxe\PYZus{}PM10}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 164 entries, 0 to 163
+Data columns (total 3 columns):
+date heure                                         164 non-null object
+PM10                                               164 non-null float64
+Lyon Gerland (source Atmo-Auvergne-Rhône-Alpes)    164 non-null object
+dtypes: float64(1), object(2)
+memory usage: 3.9+ KB
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}730}]:}     date heure   PM10 Lyon Gerland (source Atmo-Auvergne-Rhône-Alpes)
+          0   13-6 5h-6h    8.3                                               -
+          1   13-6 6h-7h   51.9                                               6
+          2   13-6 7h-8h  116.4                                              11
+          3   13-6 8h-9h   67.0                                              18
+          4  13-6 9h-10h    0.0                                              24
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}731}]:} \PY{n}{dfStationSaxe\PYZus{}PM10}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}731}]:} Index(['date heure', 'PM10',
+                 'Lyon Gerland (source Atmo-Auvergne-Rhône-Alpes)'],
+                dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}732}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k}{import} \PY{n}{datetime}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          
+          \PY{c+c1}{\PYZsh{} Create data frame}
+          \PY{n}{dfDate} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Create datetimes}
+          \PY{n}{dfDate}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{date\PYZus{}range}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{13/06/2017}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{periods} \PY{o}{=} \PY{l+m+mi}{170}\PY{p}{,} \PY{n}{freq} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{H}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{dfDate} \PY{o}{=} \PY{n}{dfDate}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{:}\PY{p}{]}
+          \PY{c+c1}{\PYZsh{}dfDate[\PYZsq{}data\PYZsq{}] = np.random.randint(0,100,size=(len(dfDate)))}
+          
+          \PY{c+c1}{\PYZsh{}add data from another df to this df}
+          \PY{n}{dfDate} \PY{o}{=} \PY{n}{dfDate}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{dfDate}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PM10}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfStationSaxe\PYZus{}PM10}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PM10}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n}{dfDate}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lyon Gerland (source Atmo\PYZhy{}Auvergne\PYZhy{}Rhône\PYZhy{}Alpes)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{n}{dfStationSaxe\PYZus{}PM10}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lyon Gerland (source Atmo\PYZhy{}Auvergne\PYZhy{}Rhône\PYZhy{}Alpes)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}replace some missing values}
+          \PY{c+c1}{\PYZsh{}remplacer le mots \PYZdq{}Date\PYZdq{} en espace dans la column Date}
+          \PY{n}{dfDate}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lyon Gerland (source Atmo\PYZhy{}Auvergne\PYZhy{}Rhône\PYZhy{}Alpes)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}remplacer les espace vide par missing values:}
+          \PY{n}{dfDate}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{nan}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}Mettre en index }
+          \PY{n}{dfDate}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{n}{dfStationSaxe\PYZus{}PM10} \PY{o}{=} \PY{n}{dfDate}
+          
+          \PY{n}{dfStationSaxe\PYZus{}PM10}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/Users/Administrateur/Documents/ML/Mes projet/lyon/Qualiter\PYZus{}Air/Data/Clean/Station Saxe\PYZhy{}Gambetta PM10.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{;}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{n}{dfStationSaxe\PYZus{}PM10}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+          \PY{n}{dfStationSaxe\PYZus{}PM10}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 164 entries, 2017-06-13 06:00:00 to 2017-06-20 01:00:00
+Data columns (total 2 columns):
+PM10                                               164 non-null float64
+Lyon Gerland (source Atmo-Auvergne-Rhône-Alpes)    159 non-null object
+dtypes: float64(1), object(1)
+memory usage: 3.8+ KB
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}732}]:}                       PM10 Lyon Gerland (source Atmo-Auvergne-Rhône-Alpes)
+          Date                                                                      
+          2017-06-13 06:00:00    8.3                                             NaN
+          2017-06-13 07:00:00   51.9                                               6
+          2017-06-13 08:00:00  116.4                                              11
+          2017-06-13 09:00:00   67.0                                              18
+          2017-06-13 10:00:00    0.0                                              24
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}733}]:} \PY{n}{dfStationSaxe\PYZus{}PM10}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}733}]:} PM10                                               0
+          Lyon Gerland (source Atmo-Auvergne-Rhône-Alpes)    5
+          dtype: int64
+\end{Verbatim}
+            
+    \hypertarget{station-saxe-pm2.5}{%
+\subsubsection{Station Saxe PM2.5}\label{station-saxe-pm2.5}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}734}]:} \PY{n}{dfStationSaxePM2\PYZus{}5}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+          \PY{n}{dfStationSaxePM2\PYZus{}5}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 167 entries, 0 to 166
+Data columns (total 3 columns):
+Date et heure                      167 non-null object
+Moyenne horaire PM2.5 en µg/m3     167 non-null float64
+Lyon Centre                        167 non-null object
+dtypes: float64(1), object(2)
+memory usage: 4.0+ KB
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}734}]:}   Date et heure  Moyenne horaire PM2.5 en µg/m3  Lyon Centre
+          0    20-6 2h-3h                             15.8           -
+          1    20-6 3h-4h                             29.1           -
+          2    20-6 4h-5h                             17.7           -
+          3    20-6 5h-6h                             18.7           -
+          4    20-6 6h-7h                             28.0           -
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}735}]:} \PY{n}{dfStationSaxePM2\PYZus{}5}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}735}]:} Index(['Date et heure', 'Moyenne horaire PM2.5 en µg/m3 ', 'Lyon Centre'], dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}736}]:} \PY{n}{dfStationSaxePM2\PYZus{}5} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Data/Dirty/Station Saxe\PYZhy{}Gambetta PM2.5.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{;}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Create data frame}
+          \PY{n}{dfDate2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Create datetimes}
+          \PY{n}{dfDate2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{date\PYZus{}range}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20/06/2017}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{periods} \PY{o}{=} \PY{l+m+mi}{170}\PY{p}{,} \PY{n}{freq} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{H}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{dfDate2} \PY{o}{=} \PY{n}{dfDate2}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{:}\PY{p}{]}
+          
+          
+          \PY{c+c1}{\PYZsh{}add data from another df to this df}
+          \PY{n}{dfDate2} \PY{o}{=} \PY{n}{dfDate2}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{dfDate2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Moyenne horaire PM2.5 en µg/m3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{n}{dfStationSaxePM2\PYZus{}5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Moyenne horaire PM2.5 en µg/m3 }\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{dfDate2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lyon Centre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=}  \PY{n}{dfStationSaxePM2\PYZus{}5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lyon Centre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}replace some missing values}
+          \PY{c+c1}{\PYZsh{}remplacer le mots \PYZdq{}Date\PYZdq{} en espace dans la column Date}
+          \PY{n}{dfDate2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lyon Centre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}remplacer les espace vide par missing values:}
+          \PY{n}{dfDate2}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{nan}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}Mettre en index }
+          \PY{n}{dfDate2}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{n}{dfStationSaxePM2\PYZus{}5} \PY{o}{=} \PY{n}{dfDate2}
+          
+          \PY{n}{dfStationSaxePM2\PYZus{}5}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/Users/Administrateur/Documents/ML/Mes projet/lyon/Qualiter\PYZus{}Air/Data/Clean/Station Saxe\PYZhy{}Gambetta PM2.5.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{;}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{n}{dfStationSaxePM2\PYZus{}5}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+          \PY{n}{dfStationSaxePM2\PYZus{}5}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 167 entries, 2017-06-20 03:00:00 to 2017-06-27 01:00:00
+Data columns (total 2 columns):
+Moyenne horaire PM2.5 en µg/m3    167 non-null float64
+Lyon Centre                       84 non-null object
+dtypes: float64(1), object(1)
+memory usage: 3.9+ KB
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}736}]:}                      Moyenne horaire PM2.5 en µg/m3 Lyon Centre
+          Date                                                           
+          2017-06-20 03:00:00                            15.8         NaN
+          2017-06-20 04:00:00                            29.1         NaN
+          2017-06-20 05:00:00                            17.7         NaN
+          2017-06-20 06:00:00                            18.7         NaN
+          2017-06-20 07:00:00                            28.0         NaN
+\end{Verbatim}
+            
+    \hypertarget{station-du-finiculaire}{%
+\subsection{Station du Finiculaire}\label{station-du-finiculaire}}
+
+\hypertarget{finiculars-stop}{%
+\subsection{Finicular's Stop}\label{finiculars-stop}}
+
+    \hypertarget{saint-jus}{%
+\subsubsection{Saint Jus}\label{saint-jus}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}737}]:} \PY{n}{dfFuniculaireSaintJus}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+          \PY{n}{dfFuniculaireSaintJus}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 5 entries, 0 to 4
+Data columns (total 2 columns):
+Station       5 non-null object
+PM10 µg/m³    5 non-null int64
+dtypes: int64(1), object(1)
+memory usage: 160.0+ bytes
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}737}]:}               Station  PM10 µg/m³
+          0             Moyenne          50
+          1  Vieux Lyon St Ju s          26
+          2  Vieux Lyon St Ju m         111
+          3        Saint Just s          26
+          4        Saint Just m          40
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}738}]:} \PY{n}{dfFuniculaireSaintJus} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Data/Dirty/Funiculaire Saint\PYZhy{}Just.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{;}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}New column = Take the last letter of my column }
+          \PY{n}{dfFuniculaireSaintJus}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin/Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfFuniculaireSaintJus}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Station}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}Column Matin}
+          \PY{n}{dfFuniculaireSaintJus}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfFuniculaireSaintJus}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin/Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+m+mi}{1} \PY{k}{if} \PY{n}{x}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}} \PY{k}{else} \PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{dfFuniculaireSaintJus}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfFuniculaireSaintJus}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}Column Soir}
+          \PY{n}{dfFuniculaireSaintJus}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfFuniculaireSaintJus}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin/Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+m+mi}{1} \PY{k}{if} \PY{n}{x}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}} \PY{k}{else} \PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{dfFuniculaireSaintJus}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfFuniculaireSaintJus}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+          
+          
+          
+          \PY{c+c1}{\PYZsh{}Supprimer la première ligne par l\PYZsq{}index}
+          \PY{n}{dfFuniculaireSaintJus}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+          \PY{k}{del} \PY{n}{dfFuniculaireSaintJus}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin/Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}reindex }
+          \PY{n}{dfFuniculaireSaintJus} \PY{o}{=} \PY{n}{dfFuniculaireSaintJus}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{n}{dfFuniculaireSaintJus}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/Users/Administrateur/Documents/ML/Mes projet/lyon/Qualiter\PYZus{}Air/Data/Clean/Funiculaire Saint\PYZhy{}Just.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{;}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{dfFuniculaireSaintJus}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}738}]:}               Station  PM10 µg/m³  Matin  Soir
+          0  Vieux Lyon St Ju s          26      0     1
+          1  Vieux Lyon St Ju m         111      1     0
+          2        Saint Just s          26      0     1
+          3        Saint Just m          40      1     0
+\end{Verbatim}
+            
+    \hypertarget{fourviuxe8re}{%
+\subsubsection{Fourvière}\label{fourviuxe8re}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}739}]:} \PY{n}{dfFuniculaireFourviere}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+          \PY{n}{dfFuniculaireFourviere}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 5 entries, 0 to 4
+Data columns (total 2 columns):
+Station       5 non-null object
+PM10 µg/m³    5 non-null int64
+dtypes: int64(1), object(1)
+memory usage: 160.0+ bytes
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}739}]:}                   Station  PM10 µg/m³
+          0                 Moyenne          38
+          1             Fourvière s          22
+          2             Fourvière m          22
+          3  Vieux Lyon Fourvière s          30
+          4  Vieux Lyon Fourvière m          81
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}740}]:} \PY{n}{dfFuniculaireFourviere} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Data/Dirty/Funiculaire Fourviere.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{;}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          
+          \PY{c+c1}{\PYZsh{}New column = Take the last letter of my column }
+          \PY{n}{dfFuniculaireFourviere}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin/Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfFuniculaireFourviere}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Station}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}Column Matin}
+          \PY{n}{dfFuniculaireFourviere}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfFuniculaireFourviere}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin/Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+m+mi}{1} \PY{k}{if} \PY{n}{x}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}} \PY{k}{else} \PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{dfFuniculaireFourviere}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfFuniculaireFourviere}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}Column Soir}
+          \PY{n}{dfFuniculaireFourviere}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfFuniculaireFourviere}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin/Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+m+mi}{1} \PY{k}{if} \PY{n}{x}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}} \PY{k}{else} \PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{dfFuniculaireFourviere}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfFuniculaireFourviere}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+          
+          
+          \PY{c+c1}{\PYZsh{}Supprimer la première ligne par l\PYZsq{}index}
+          \PY{n}{dfFuniculaireFourviere}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+          \PY{k}{del} \PY{n}{dfFuniculaireFourviere}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matin/Soir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}reindex }
+          \PY{n}{dfFuniculaireFourviere} \PY{o}{=} \PY{n}{dfFuniculaireFourviere}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{n}{dfFuniculaireFourviere}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/Users/Administrateur/Documents/ML/Mes projet/lyon/Qualiter\PYZus{}Air/Data/Clean/Funiculaire Fourviere.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{;}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{dfFuniculaireFourviere}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}740}]:}                   Station  PM10 µg/m³  Matin  Soir
+          0             Fourvière s          22      0     1
+          1             Fourvière m          22      1     0
+          2  Vieux Lyon Fourvière s          30      0     1
+          3  Vieux Lyon Fourvière m          81      1     0
+\end{Verbatim}
+            
+    \hypertarget{analyses}{%
+\section{Analyses}\label{analyses}}
+
+    2017, la valeur de référence pour Lyon est de 226 µg/m³". Les mesures de
+mars 2017 en station (mesure de 15 minutes des PM10)
+
+2017, the reference value for Lyon is 226 µg/m³". March 2017
+measurements in stations (15-minute measurement of PM10)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}741}]:} \PY{c+c1}{\PYZsh{} visualization libraries}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+          
+          
+          \PY{c+c1}{\PYZsh{} print the graphs in the notebook}
+          \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+          
+          \PY{c+c1}{\PYZsh{} set seaborn style to white}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{ligne-a}{%
+\subsection{Ligne A}\label{ligne-a}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}742}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{rcdefaults}\PY{p}{(}\PY{p}{)}
+          \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+          
+          
+          \PY{n}{people} \PY{o}{=} \PY{n}{dfLigneA}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Station}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{y\PYZus{}pos} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{people}\PY{p}{)}\PY{p}{)}
+          
+          
+          \PY{n}{performance} \PY{o}{=} \PY{n}{dfLigneA}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PM10 µg/m³}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{n}{error} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{people}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{ax}\PY{o}{.}\PY{n}{barh}\PY{p}{(}\PY{n}{y\PYZus{}pos}\PY{p}{,} \PY{n}{performance}\PY{p}{,} \PY{n}{xerr}\PY{o}{=}\PY{n}{error}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{n}{y\PYZus{}pos}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yticklabels}\PY{p}{(}\PY{n}{people}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{invert\PYZus{}yaxis}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{} labels read top\PYZhy{}to\PYZhy{}bottom}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PM10 µg/m³}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ligne A (m = matin, s = soir)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ligne-b}{%
+\subsection{Ligne B}\label{ligne-b}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}743}]:} \PY{n}{dfLigneB}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}743}]:}         Station  PM10  µg/m³  Matin  Soir
+          0  Charpennes s           80      0     1
+          1  Charpennes m          134      1     0
+          2   Brotteaux s           74      0     1
+          3   Brotteaux m          116      1     0
+          4   Part-Dieu s          111      0     1
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}744}]:} \PY{n}{dfLigneB}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Station}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PM10 µg/m³}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Matin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soir}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{dfLigneB}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}744}]:} Index(['Station', 'PM10 µg/m³', 'Matin', 'Soir'], dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}745}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{rcdefaults}\PY{p}{(}\PY{p}{)}
+          \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+          
+          
+          \PY{n}{people} \PY{o}{=} \PY{n}{dfLigneB}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Station}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{y\PYZus{}pos} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{people}\PY{p}{)}\PY{p}{)}
+          
+          
+          \PY{n}{performance} \PY{o}{=} \PY{n}{dfLigneB}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PM10 µg/m³}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{n}{error} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{people}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{ax}\PY{o}{.}\PY{n}{barh}\PY{p}{(}\PY{n}{y\PYZus{}pos}\PY{p}{,} \PY{n}{performance}\PY{p}{,} \PY{n}{xerr}\PY{o}{=}\PY{n}{error}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{n}{y\PYZus{}pos}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yticklabels}\PY{p}{(}\PY{n}{people}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{invert\PYZus{}yaxis}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{} labels read top\PYZhy{}to\PYZhy{}bottom}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PM10 µg/m³}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ligne B (m = matin, s = soir)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ligne-c}{%
+\subsubsection{Ligne C}\label{ligne-c}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}746}]:} \PY{n}{dfLigneC}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}746}]:}             Station  PM10   µg/ m³  Matin  Soir
+          0           Hénon s             26      0     1
+          1           Hénon m             29      1     0
+          2    Croix-Rousse s             40      0     1
+          3    Croix-Rousse m             43      1     0
+          4  Hôtel de ville s             93      0     1
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}747}]:} \PY{n}{dfLigneC}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Station}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PM10 µg/m³}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Matin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soir}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{dfLigneC}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}747}]:} Index(['Station', 'PM10 µg/m³', 'Matin', 'Soir'], dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}748}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{rcdefaults}\PY{p}{(}\PY{p}{)}
+          \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+          
+          
+          \PY{n}{people} \PY{o}{=} \PY{n}{dfLigneC}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Station}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{y\PYZus{}pos} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{people}\PY{p}{)}\PY{p}{)}
+          
+          
+          \PY{n}{performance} \PY{o}{=} \PY{n}{dfLigneC}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PM10 µg/m³}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{n}{error} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{people}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{ax}\PY{o}{.}\PY{n}{barh}\PY{p}{(}\PY{n}{y\PYZus{}pos}\PY{p}{,} \PY{n}{performance}\PY{p}{,} \PY{n}{xerr}\PY{o}{=}\PY{n}{error}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{n}{y\PYZus{}pos}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yticklabels}\PY{p}{(}\PY{n}{people}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{invert\PYZus{}yaxis}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{} labels read top\PYZhy{}to\PYZhy{}bottom}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PM10 µg/m³}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ligne C (m = matin, s = soir)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_49_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ligne-d}{%
+\subsubsection{Ligne D}\label{ligne-d}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}749}]:} \PY{n}{dfLigneD}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}749}]:}            Station  PM10  µg/m³  Matin  Soir
+          0  Gare de Vaise s           74      0     1
+          1  Gare de Vaise m          104      1     0
+          2          Valmy s          130      0     1
+          3          Valmy m          129      1     0
+          4  Gorge de Loup s          105      0     1
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}750}]:} \PY{n}{dfLigneD}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Station}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PM10 µg/m³}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Matin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soir}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{dfLigneD}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}750}]:} Index(['Station', 'PM10 µg/m³', 'Matin', 'Soir'], dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}751}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{rcdefaults}\PY{p}{(}\PY{p}{)}
+          \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+          
+          
+          \PY{n}{people} \PY{o}{=} \PY{n}{dfLigneD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Station}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{y\PYZus{}pos} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{people}\PY{p}{)}\PY{p}{)}
+          
+          
+          \PY{n}{performance} \PY{o}{=} \PY{n}{dfLigneD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PM10 µg/m³}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{n}{error} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{people}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{ax}\PY{o}{.}\PY{n}{barh}\PY{p}{(}\PY{n}{y\PYZus{}pos}\PY{p}{,} \PY{n}{performance}\PY{p}{,} \PY{n}{xerr}\PY{o}{=}\PY{n}{error}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkgreen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{n}{y\PYZus{}pos}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yticklabels}\PY{p}{(}\PY{n}{people}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{invert\PYZus{}yaxis}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{} labels read top\PYZhy{}to\PYZhy{}bottom}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PM10 µg/m³}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ligne D (m = matin, s = soir)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_53_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{finiculaire-saint-jus}{%
+\subsubsection{Finiculaire Saint Jus}\label{finiculaire-saint-jus}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}752}]:} \PY{n}{dfFuniculaireSaintJus}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}752}]:}               Station  PM10 µg/m³  Matin  Soir
+          0  Vieux Lyon St Ju s          26      0     1
+          1  Vieux Lyon St Ju m         111      1     0
+          2        Saint Just s          26      0     1
+          3        Saint Just m          40      1     0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}753}]:} \PY{n}{dfFuniculaireSaintJus}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Station}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PM10 µg/m³}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Matin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soir}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{dfFuniculaireSaintJus}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}753}]:} Index(['Station', 'PM10 µg/m³', 'Matin', 'Soir'], dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}754}]:} \PY{c+c1}{\PYZsh{} group by the Country}
+          \PY{n}{Station} \PY{o}{=} \PY{n}{dfFuniculaireSaintJus}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Station}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} we sort the value and get the first 10 high parking shape}
+          \PY{n}{Station} \PY{o}{=} \PY{n}{Station}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PM10 µg/m³}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ascending} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} create the plot}
+          \PY{n}{Station}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PM10 µg/m³}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightgreen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Set the title and labels}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Station}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PM10 µg/m³}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Funiculaire Saint Jus (m = matin, s = soir)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} show the plot}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_57_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{finiculaire-fourviere}{%
+\subsubsection{Finiculaire Fourviere}\label{finiculaire-fourviere}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}755}]:} \PY{n}{dfFuniculaireFourviere}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}755}]:}                   Station  PM10 µg/m³  Matin  Soir
+          0             Fourvière s          22      0     1
+          1             Fourvière m          22      1     0
+          2  Vieux Lyon Fourvière s          30      0     1
+          3  Vieux Lyon Fourvière m          81      1     0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}756}]:} \PY{n}{dfFuniculaireFourviere}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Station}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PM10 µg/m³}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Matin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soir}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{dfFuniculaireFourviere}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}756}]:} Index(['Station', 'PM10 µg/m³', 'Matin', 'Soir'], dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}757}]:} \PY{c+c1}{\PYZsh{} group by the Country}
+          \PY{n}{Station} \PY{o}{=} \PY{n}{dfFuniculaireFourviere}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Station}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} we sort the value and get the first 10 high parking shape}
+          \PY{n}{Station} \PY{o}{=} \PY{n}{Station}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PM10 µg/m³}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ascending} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} create the plot}
+          \PY{n}{Station}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PM10 µg/m³}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightgreen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Set the title and labels}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Station}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PM10 µg/m³}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Funiculaire de Fourviere (m = matin, s = soir)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} show the plot}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_61_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Ces instantanés ne permettent pas de dégager des variations précises.
+Cependant ils mettent en lumière que lors des mesures, la ligne A est
+celle où les particules fines PM10 sont les plus présentes avec une
+moyenne de 107 µg/ m³. À l'inverse, la ligne C et le funiculaire
+Fourvière sont celles où elles sont en concentration plus faible, avec
+des moyennes respectivement à 46 µg/ m³ et 38,75 µg/ m³. Une différence
+qui s'explique grâce à des portions à ciel ouvert. Enfin, la
+concentration la plus forte a été relevée le 14 mars 2017 dans la
+station de La Soie sur la ligne A (166 µg/ m³).
+
+    These snapshots do not allow precise variations to be identified.
+However, they highlight that during measurements, line A is the one
+where fine particles PM10 are most present with an average of 107 µg/m³.
+Conversely, line C and the Fourvière funicular are the ones where they
+are in lower concentration, with averages of 46 µg/m³ and 38.75 µg/m³
+respectively. This difference can be explained by the open-air portions.
+Finally, the highest concentration was found on 14 March 2017 in La Soie
+station on line A (166 µg/m³).
+
+    \hypertarget{station-metro}{%
+\subsubsection{Station metro}\label{station-metro}}
+
+\hypertarget{subways-stop}{%
+\subsubsection{Subway's stop}\label{subways-stop}}
+
+\hypertarget{le-rond-point-le-plus-utilisuxe9s-dans-le-ruxe9seaux-tcl}{%
+\subsubsection{Le rond point le plus utilisés dans le réseaux
+TCL}\label{le-rond-point-le-plus-utilisuxe9s-dans-le-ruxe9seaux-tcl}}
+
+\hypertarget{the-most-used-roundabout-in-the-tcl-network}{%
+\subsubsection{The most used roundabout in the TCL
+network}\label{the-most-used-roundabout-in-the-tcl-network}}
+
+    \hypertarget{station-de-saxe-pour-le-pm10}{%
+\subsubsection{Station de Saxe Pour le
+PM10}\label{station-de-saxe-pour-le-pm10}}
+
+\hypertarget{saxes-stop-for-pm10}{%
+\subsubsection{Saxe's Stop for PM10}\label{saxes-stop-for-pm10}}
+
+    Les mesures de juin 2017 à la station Saxe-Gambetta pour les PM10
+réalisées du 13 juin 2017 au 20 juin 2017 (En comparaison avec les
+données fournies par Atmo-Auvergne-Rhône-Alpes pour la même période pour
+la station de mesure de l'air extérieur à Lyon Gerland).
+
+    June 2017 measurements at the Saxe-Gambetta station for PM10 from 13
+June 2017 to 20 June 2017 (In comparison with the data provided by
+Atmo-Auvergne-Rhône-Alpes for the same period for the outdoor air
+measurement station in Lyon Gerland).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}758}]:} \PY{n}{dfStationSaxe\PYZus{}PM10}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{dfStationSaxe\PYZus{}PM10}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lyon Gerland (source Atmo\PYZhy{}Auvergne\PYZhy{}Rhône\PYZhy{}Alpes)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{4}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{dfStationSaxe\PYZus{}PM10}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{23}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lyon Gerland (source Atmo\PYZhy{}Auvergne\PYZhy{}Rhône\PYZhy{}Alpes)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{3}\PY{l+s+s2}{\PYZdq{}}
+          
+          \PY{n}{dfStationSaxe\PYZus{}PM10}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lyon Gerland (source Atmo\PYZhy{}Auvergne\PYZhy{}Rhône\PYZhy{}Alpes)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{n}{dfStationSaxe\PYZus{}PM10}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lyon Gerland (source Atmo\PYZhy{}Auvergne\PYZhy{}Rhône\PYZhy{}Alpes)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{dfStationSaxe\PYZus{}PM10}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lyon Gerland (source Atmo\PYZhy{}Auvergne\PYZhy{}Rhône\PYZhy{}Alpes)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n}{dfStationSaxe\PYZus{}PM10}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lyon Gerland (source Atmo\PYZhy{}Auvergne\PYZhy{}Rhône\PYZhy{}Alpes)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfStationSaxe\PYZus{}PM10}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lyon Gerland (source Atmo\PYZhy{}Auvergne\PYZhy{}Rhône\PYZhy{}Alpes)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}
+          
+          \PY{n}{dfStationSaxe\PYZus{}PM10}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Date}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{dfStationSaxe\PYZus{}PM10}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}758}]:}                       PM10  Lyon Gerland (source Atmo-Auvergne-Rhône-Alpes)
+          Date                                                                       
+          2017-06-13 06:00:00    8.3                                              4.0
+          2017-06-13 07:00:00   51.9                                              6.0
+          2017-06-13 08:00:00  116.4                                             11.0
+          2017-06-13 09:00:00   67.0                                             18.0
+          2017-06-13 10:00:00    0.0                                             24.0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}759}]:} \PY{n}{dfStationSaxe\PYZus{}PM10}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{stacked}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}759}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a63358f28>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_69_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Les résultats des mesures pour les PM10 à la station Saxe-Gambetta
+dépassent à cinq reprises la valeur de référence Csout de 226 µg/m³.
+Selon le Sytral, la valeur très forte de 378,9 µg/m³ relevée le 19 juin
+est ``due à une découpe de panneaux en bois réalisé à proximité de
+l'analyseur''. Dans tous les cas, la concentration en PM10 reste bien
+plus élevée dans le réseau métro que celle relevée sur le site extérieur
+de Lyon Gerland par Atmo-Auvergne-Rhône-Alpes. Quand à l'extérieur la
+moyenne est de 20 µg/m³, elle est de 83 µg/m³ dans la station
+Saxe-Gambetta. En comparant les deux jeux de données, la concentration
+des particules fines est donc quatre fois plus élevée dans le réseau
+métro.
+
+    The measurement results for PM10 at the Saxony-Gambetta station exceed
+the Csout reference value of 226 µg/m³ five times. According to Sytral,
+the very high value of 378.9 µg/m³ recorded on 19 June is ``due to a
+cutting of wooden panels made near the analyser''. In any case, the PM10
+concentration remains much higher in the metro network than that
+recorded on the Lyon Gerland outdoor site by Atmo-Auvergne-Rhône-Alpes.
+When outdoors the average is 20 µg/m³, it is 83 µg/m³ in the
+Saxony-Gambetta station. By comparing the two datasets, the
+concentration of fine particles is therefore four times higher in the
+metro network.
+
+    \hypertarget{station-de-saxe-pour-le-pm2.5}{%
+\subsubsection{Station de Saxe Pour le
+PM2.5}\label{station-de-saxe-pour-le-pm2.5}}
+
+\hypertarget{saxes-stop-for-pm2.5}{%
+\subsubsection{Saxe's Stop for PM2.5}\label{saxes-stop-for-pm2.5}}
+
+    Les mesures de juin 2017 à la station Saxe-Gambetta pour les PM2.5
+réalisées du 20 juin 2017 au 27 juin 2017 (En comparaison avec les
+données fournies, lorsqu'elles sont disponibles, par
+Atmo-Auvergne-Rhône-Alpes pour la station de mesure de l'air extérieur à
+Lyon Centre).
+
+    June 2017 measurements at the Saxe-Gambetta station for PM2.5 from 20
+June 2017 to 27 June 2017 (In comparison with the data provided, when
+available, by Atmo-Auvergne-Rhône-Alpes for the outdoor air measurement
+station in Lyon Centre).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}760}]:} \PY{n}{dfStationSaxePM2\PYZus{}5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lyon Centre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{n}{dfStationSaxePM2\PYZus{}5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lyon Centre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{dfStationSaxePM2\PYZus{}5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lyon Centre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n}{dfStationSaxePM2\PYZus{}5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lyon Centre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfStationSaxePM2\PYZus{}5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lyon Centre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}
+          \PY{n}{dfStationSaxePM2\PYZus{}5}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}760}]:}                      Moyenne horaire PM2.5 en µg/m3  Lyon Centre
+          Date                                                            
+          2017-06-20 03:00:00                            15.8         13.0
+          2017-06-20 04:00:00                            29.1         13.0
+          2017-06-20 05:00:00                            17.7         13.0
+          2017-06-20 06:00:00                            18.7         13.0
+          2017-06-20 07:00:00                            28.0         13.0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}761}]:} \PY{n}{dfStationSaxePM2\PYZus{}5}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{stacked}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}761}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a49426978>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_76_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    On peut souligner une récurrence dans les mesures avec des fortes
+concentrations de PM2.5 en début de soirée, entre 18h et 21h. Les
+valeurs dépassent alors régulièrement les 100 µg/m³. Seule exception, le
+dimanche 25 juin, où le seuil est légèrement dépassé une seule fois
+(100.1 µg/m³). Selon une source interne, en heure de pointe, la
+fréquence des rames joue dans l'augmentation de ces valeurs.
+
+Enfin, en absence de données pour le site de Gerland pour cette période
+sur la page d'Atmo-Auvergne-Rhône-Alpes, nous utilisons ici celles du
+site de Lyon Centre pour réaliser une comparaison avec l'air extérieur.
+A noter, des mesures sont manquantes sur certains créneaux horaires.
+Ainsi, en comparant uniquement les créneaux où les données existent dans
+les deux cas, et en gardant en tête les limites inhérentes à cette
+absence de données sur l'intégralité de la période, la moyenne est de 53
+µg/m³ dans la station Saxe-Gambetta contre 13 µg/m³ relevés sur le site
+Lyon Centre. Dès lors, la concentration de PM2.5 est quatre fois plus
+élevée dans le métro qu'à l'extérieur sur cette durée.
+
+    A recurrence in measurements with high concentrations of PM2.5 can be
+noted in the early evening, between 6 pm and 9 pm. The values then
+regularly exceed 100 µg/m³. The only exception is Sunday, June 25, when
+the threshold is slightly exceeded only once (100.1 µg/m³). According to
+an internal source, at peak times, the frequency of trains plays a role
+in increasing these values.
+
+Finally, in the absence of data for the Gerland site for this period on
+the Atmo-Auvergne-Rhône-Alpes page, we use here those of the Lyon Centre
+site to make a comparison with the outside air. It should be noted that
+measurements are missing in some time slots. Thus, by comparing only the
+slots where data exist in both cases, and keeping in mind the inherent
+limitations of this lack of data over the entire period, the average is
+53 µg/m³ in the Saxe-Gambetta station compared to 13 µg/m³ recorded at
+the Lyon Centre site. As a result, the concentration of PM2.5 is four
+times higher in the metro than outside over this period.
+
+    \hypertarget{analyse-des-donnuxe9es}{%
+\section{Analyse des données}\label{analyse-des-donnuxe9es}}
+
+\hypertarget{data-analyses}{%
+\section{Data Analyses}\label{data-analyses}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}762}]:} \PY{c+c1}{\PYZsh{}Dans le cas du PM2.5}
+          \PY{c+c1}{\PYZsh{}in case of PM2.5}
+          \PY{k}{def} \PY{n+nf}{plot\PYZus{}df}\PY{p}{(}\PY{n}{col}\PY{p}{)}\PY{p}{:}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{17}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{dfStationSaxePM2\PYZus{}5}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{n}{col}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+              
+          \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{dfStationSaxePM2\PYZus{}5}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+              \PY{n}{plot\PYZus{}df}\PY{p}{(}\PY{n}{col}\PY{p}{)}
+              
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_80_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_80_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}763}]:} \PY{c+c1}{\PYZsh{}Dans le cas du PM10}
+          \PY{c+c1}{\PYZsh{}in case of PM10}
+          \PY{k}{def} \PY{n+nf}{plot\PYZus{}df}\PY{p}{(}\PY{n}{col}\PY{p}{)}\PY{p}{:}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{17}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{dfStationSaxe\PYZus{}PM10}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{n}{col}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+              
+          \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{dfStationSaxe\PYZus{}PM10}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+              \PY{n}{plot\PYZus{}df}\PY{p}{(}\PY{n}{col}\PY{p}{)}
+              
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_81_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_81_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}764}]:} \PY{n}{dfStationSaxe\PYZus{}PM10}\PY{o}{.}\PY{n}{columns}
+          \PY{c+c1}{\PYZsh{}dfStationSaxePM2\PYZus{}5.columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}764}]:} Index(['PM10', 'Lyon Gerland (source Atmo-Auvergne-Rhône-Alpes)'], dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}765}]:} \PY{c+c1}{\PYZsh{}on a besoin que qu\PYZsq{}une column , ma cible }
+          \PY{c+c1}{\PYZsh{}We need juste one column (my target)}
+          \PY{k}{del} \PY{n}{dfStationSaxePM2\PYZus{}5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lyon Centre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{k}{del} \PY{n}{dfStationSaxe\PYZus{}PM10}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lyon Gerland (source Atmo\PYZhy{}Auvergne\PYZhy{}Rhône\PYZhy{}Alpes)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}766}]:} \PY{n}{dfStationSaxePM2\PYZus{}5}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}766}]:}                      Moyenne horaire PM2.5 en µg/m3
+          Date                                               
+          2017-06-20 03:00:00                            15.8
+          2017-06-20 04:00:00                            29.1
+          2017-06-20 05:00:00                            17.7
+          2017-06-20 06:00:00                            18.7
+          2017-06-20 07:00:00                            28.0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}767}]:} \PY{n}{dfStationSaxe\PYZus{}PM10}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}767}]:}                       PM10
+          Date                      
+          2017-06-13 06:00:00    8.3
+          2017-06-13 07:00:00   51.9
+          2017-06-13 08:00:00  116.4
+          2017-06-13 09:00:00   67.0
+          2017-06-13 10:00:00    0.0
+\end{Verbatim}
+            
+    \hypertarget{modelisation}{%
+\subsection{Modelisation}\label{modelisation}}
+
+    Si vous avez pas prophet (c'est ce que je vais utiliser) pour le
+télécharger faites ceci : If you have not prohphet (is what i will use),
+do this :
+
+\begin{verbatim}
+                      anaconda: conda install gcc
+                                puis (next)
+                        conda install -c conda-forge fbprophet
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}768}]:} \PY{k+kn}{from} \PY{n+nn}{fbprophet} \PY{k}{import} \PY{n}{Prophet}
+          \PY{k+kn}{import} \PY{n+nn}{logging}
+          
+          \PY{c+c1}{\PYZsh{}enleve les error le truc rouge}
+          \PY{c+c1}{\PYZsh{}remove red error}
+          \PY{c+c1}{\PYZsh{}logging.getLogger().setLevel(logging.ERROR)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}769}]:} \PY{c+c1}{\PYZsh{}Ensuite, Prophet exige que la colonne Date soit}
+          \PY{c+c1}{\PYZsh{}nommée ds et que la colonne des résultats soit nommée y:}
+          \PY{c+c1}{\PYZsh{}\PYZsh{}Next, require you your column of data named ds and for result y}
+          
+          \PY{n}{dfStationPM2\PYZus{}5} \PY{o}{=} \PY{n}{dfStationSaxePM2\PYZus{}5}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+          \PY{n}{dfStationPM2\PYZus{}5}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{dfStationPM2\PYZus{}5}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+          \PY{n}{dfStationPM2\PYZus{}5}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 167 entries, 0 to 166
+Data columns (total 2 columns):
+ds    167 non-null datetime64[ns]
+y     167 non-null float64
+dtypes: datetime64[ns](1), float64(1)
+memory usage: 2.7 KB
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}769}]:}                    ds     y
+          0 2017-06-20 03:00:00  15.8
+          1 2017-06-20 04:00:00  29.1
+          2 2017-06-20 05:00:00  17.7
+          3 2017-06-20 06:00:00  18.7
+          4 2017-06-20 07:00:00  28.0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}770}]:} \PY{n}{dfStationPM10} \PY{o}{=} \PY{n}{dfStationSaxe\PYZus{}PM10}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+          \PY{n}{dfStationPM10}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{dfStationPM10}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+          \PY{n}{dfStationPM10}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 164 entries, 0 to 163
+Data columns (total 2 columns):
+ds    164 non-null datetime64[ns]
+y     164 non-null float64
+dtypes: datetime64[ns](1), float64(1)
+memory usage: 2.6 KB
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}770}]:}                    ds      y
+          0 2017-06-13 06:00:00    8.3
+          1 2017-06-13 07:00:00   51.9
+          2 2017-06-13 08:00:00  116.4
+          3 2017-06-13 09:00:00   67.0
+          4 2017-06-13 10:00:00    0.0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}792}]:} \PY{c+c1}{\PYZsh{}Ensuite, nous définissons un dataset de training. }
+          \PY{c+c1}{\PYZsh{}Pour cela, nous utiliserons les 50 dernières entrées à des fins de prédiction et de validation.}
+          \PY{c+c1}{\PYZsh{}After we defined an training dataset}
+          \PY{c+c1}{\PYZsh{}For that, we will use the 160 last in at the end for prediction and validation}
+          
+          \PY{n}{prediction\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{28}
+          \PY{n}{train\PYZus{}dfStationPM2\PYZus{}5} \PY{o}{=} \PY{n}{dfStationPM2\PYZus{}5}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{n}{prediction\PYZus{}size}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}849}]:} \PY{n}{prediction\PYZus{}size2} \PY{o}{=} \PY{l+m+mi}{30}
+          \PY{n}{train\PYZus{}dfStationPM10} \PY{o}{=} \PY{n}{dfStationPM10}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{n}{prediction\PYZus{}size2}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}850}]:} \PY{c+c1}{\PYZsh{}Ensuite, nous initialisons simplement Prophet, }
+          \PY{c+c1}{\PYZsh{}ajustons le modèle aux données et commençons à faire des prédictions!}
+          
+          \PY{n}{m} \PY{o}{=} \PY{n}{Prophet}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{m}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{train\PYZus{}dfStationPM2\PYZus{}5}\PY{p}{)}
+          
+          \PY{n}{future} \PY{o}{=} \PY{n}{m}\PY{o}{.}\PY{n}{make\PYZus{}future\PYZus{}dataframe}\PY{p}{(}\PY{n}{periods}\PY{o}{=}\PY{n}{prediction\PYZus{}size}\PY{p}{)}
+          \PY{n}{forecast} \PY{o}{=} \PY{n}{m}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{future}\PY{p}{)}
+          \PY{n}{forecast}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+INFO:fbprophet:Disabling yearly seasonality. Run prophet with yearly\_seasonality=True to override this.
+INFO:fbprophet:Disabling weekly seasonality. Run prophet with weekly\_seasonality=True to override this.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}850}]:}                    ds      trend  yhat\_lower  yhat\_upper  trend\_lower  \textbackslash{}
+          0 2017-06-20 03:00:00  57.471511   17.469957   49.348317    57.471511   
+          1 2017-06-20 04:00:00  57.867778    2.551926   36.869406    57.867778   
+          2 2017-06-20 05:00:00  58.264045   -3.644959   29.655108    58.264045   
+          3 2017-06-20 06:00:00  58.660312    0.565262   34.281879    58.660312   
+          4 2017-06-20 07:00:00  59.056579   19.335748   54.101177    59.056579   
+          
+             trend\_upper  additive\_terms  additive\_terms\_lower  additive\_terms\_upper  \textbackslash{}
+          0    57.471511      -23.812109            -23.812109            -23.812109   
+          1    57.867778      -38.329106            -38.329106            -38.329106   
+          2    58.264045      -45.501083            -45.501083            -45.501083   
+          3    58.660312      -39.411188            -39.411188            -39.411188   
+          4    59.056579      -22.594546            -22.594546            -22.594546   
+          
+                 daily  daily\_lower  daily\_upper  multiplicative\_terms  \textbackslash{}
+          0 -23.812109   -23.812109   -23.812109                   0.0   
+          1 -38.329106   -38.329106   -38.329106                   0.0   
+          2 -45.501083   -45.501083   -45.501083                   0.0   
+          3 -39.411188   -39.411188   -39.411188                   0.0   
+          4 -22.594546   -22.594546   -22.594546                   0.0   
+          
+             multiplicative\_terms\_lower  multiplicative\_terms\_upper       yhat  
+          0                         0.0                         0.0  33.659402  
+          1                         0.0                         0.0  19.538672  
+          2                         0.0                         0.0  12.762962  
+          3                         0.0                         0.0  19.249123  
+          4                         0.0                         0.0  36.462032  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}851}]:} \PY{n}{m2} \PY{o}{=} \PY{n}{Prophet}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{m2}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{train\PYZus{}dfStationPM10}\PY{p}{)}
+          
+          \PY{n}{future2} \PY{o}{=} \PY{n}{m2}\PY{o}{.}\PY{n}{make\PYZus{}future\PYZus{}dataframe}\PY{p}{(}\PY{n}{periods}\PY{o}{=}\PY{n}{prediction\PYZus{}size2}\PY{p}{)}
+          \PY{n}{forecast2} \PY{o}{=} \PY{n}{m2}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{future2}\PY{p}{)}
+          \PY{n}{forecast2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+INFO:fbprophet:Disabling yearly seasonality. Run prophet with yearly\_seasonality=True to override this.
+INFO:fbprophet:Disabling weekly seasonality. Run prophet with weekly\_seasonality=True to override this.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}851}]:}                    ds       trend  yhat\_lower  yhat\_upper  trend\_lower  \textbackslash{}
+          0 2017-06-13 06:00:00  103.234019   -7.833990   77.107077   103.234019   
+          1 2017-06-13 07:00:00  103.812949   23.406598  109.531184   103.812949   
+          2 2017-06-13 08:00:00  104.391880   54.671973  138.507745   104.391880   
+          3 2017-06-13 09:00:00  104.970810   71.848144  157.544195   104.970810   
+          4 2017-06-13 10:00:00  105.549740   83.352582  168.387099   105.549740   
+          
+             trend\_upper  additive\_terms  additive\_terms\_lower  additive\_terms\_upper  \textbackslash{}
+          0   103.234019      -68.867400            -68.867400            -68.867400   
+          1   103.812949      -38.559782            -38.559782            -38.559782   
+          2   104.391880       -7.695599             -7.695599             -7.695599   
+          3   104.970810       11.649394             11.649394             11.649394   
+          4   105.549740       17.642914             17.642914             17.642914   
+          
+                 daily  daily\_lower  daily\_upper  multiplicative\_terms  \textbackslash{}
+          0 -68.867400   -68.867400   -68.867400                   0.0   
+          1 -38.559782   -38.559782   -38.559782                   0.0   
+          2  -7.695599    -7.695599    -7.695599                   0.0   
+          3  11.649394    11.649394    11.649394                   0.0   
+          4  17.642914    17.642914    17.642914                   0.0   
+          
+             multiplicative\_terms\_lower  multiplicative\_terms\_upper        yhat  
+          0                         0.0                         0.0   34.366619  
+          1                         0.0                         0.0   65.253167  
+          2                         0.0                         0.0   96.696281  
+          3                         0.0                         0.0  116.620203  
+          4                         0.0                         0.0  123.192654  
+\end{Verbatim}
+            
+    Nickel! Ici, yhat représente la prédiction, tandis que yhat\_lower et
+yhat\_upper représentent respectivement la limite inférieure et
+supérieure de cette prédiction.
+
+Voila! Here, yhat represents the prediction, while yhat\_lower and
+yhat\_upper represent the lower and upper limits of this prediction
+respectively.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}852}]:} \PY{n}{m}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{forecast}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}852}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_96_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_96_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}853}]:} \PY{n}{m2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{forecast}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}853}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_97_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_97_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Comme vous pouvez le constater, Prophet a simplement utilisé une ligne
+droite pour prédire la concentration future de PM2.5 et c'est le même
+car pour le PM10
+
+As you can see, Prophet simply used a straight line to predict the
+future concentration of PM2.5 and it is the same because for PM10
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}854}]:} \PY{n}{m}\PY{o}{.}\PY{n}{plot\PYZus{}components}\PY{p}{(}\PY{n}{forecast}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}854}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_99_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_99_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}855}]:} \PY{n}{m2}\PY{o}{.}\PY{n}{plot\PYZus{}components}\PY{p}{(}\PY{n}{forecast2}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}855}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_100_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_100_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Ici, Prophet a seulement identifié une tendance à la hausse sans aucune
+saisonnalité.
+
+Maintenant, évaluons les performances du modèle en calculant son erreur
+moyenne en pourcentage absolu (Mean Absolute Percentage Error -- MAPE)
+et son erreur moyenne absolue (Mean Absolute Error -- MAE):
+
+Here, Prophet has only identified an upward trend without any
+seasonality.
+
+Now, let's evaluate the model's performance by calculating its Mean
+Absolute Percentage Error (MAPE) and Mean Absolute Error (MAE):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}856}]:} \PY{c+c1}{\PYZsh{} Définit une fonction qui crée une DataFrame contenant les prédictions et valeurs actuelles}
+          \PY{c+c1}{\PYZsh{} Defines a function that creates a DataFrame containing current predictions and values}
+          \PY{k}{def} \PY{n+nf}{make\PYZus{}comparison\PYZus{}dataframe}\PY{p}{(}\PY{n}{historical}\PY{p}{,} \PY{n}{forecast}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{n}{forecast}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yhat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yhat\PYZus{}lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yhat\PYZus{}upper}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{historical}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{cmp\PYZus{}dfStationPM2\PYZus{}5} \PY{o}{=} \PY{n}{make\PYZus{}comparison\PYZus{}dataframe}\PY{p}{(}\PY{n}{dfStationPM2\PYZus{}5}\PY{p}{,} \PY{n}{forecast}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}857}]:} \PY{k}{def} \PY{n+nf}{make\PYZus{}comparison\PYZus{}dataframe}\PY{p}{(}\PY{n}{historical2}\PY{p}{,} \PY{n}{forecast2}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{n}{forecast2}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yhat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yhat\PYZus{}lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yhat\PYZus{}upper}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{historical2}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{cmp\PYZus{}dfStationPM10} \PY{o}{=} \PY{n}{make\PYZus{}comparison\PYZus{}dataframe}\PY{p}{(}\PY{n}{dfStationPM10}\PY{p}{,} \PY{n}{forecast2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}858}]:} \PY{c+c1}{\PYZsh{} Définit une fonction qui calcule MAPE et MAE}
+          \PY{c+c1}{\PYZsh{} Defines a function who calcul MAPE and MAE}
+          \PY{k}{def} \PY{n+nf}{calculate\PYZus{}forecast\PYZus{}errors}\PY{p}{(}\PY{n}{dfStationPM2\PYZus{}5}\PY{p}{,} \PY{n}{prediction\PYZus{}size}\PY{p}{)}\PY{p}{:}
+              
+              \PY{n}{dfStationPM2\PYZus{}5} \PY{o}{=} \PY{n}{dfStationPM2\PYZus{}5}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+              
+              \PY{n}{dfStationPM2\PYZus{}5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfStationPM2\PYZus{}5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{dfStationPM2\PYZus{}5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yhat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{n}{dfStationPM2\PYZus{}5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{100} \PY{o}{*} \PY{n}{dfStationPM2\PYZus{}5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{dfStationPM2\PYZus{}5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              
+              \PY{n}{predicted\PYZus{}part} \PY{o}{=} \PY{n}{dfStationPM2\PYZus{}5}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{n}{prediction\PYZus{}size}\PY{p}{:}\PY{p}{]}
+              
+              \PY{n}{error\PYZus{}mean} \PY{o}{=} \PY{k}{lambda} \PY{n}{error\PYZus{}name}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{predicted\PYZus{}part}\PY{p}{[}\PY{n}{error\PYZus{}name}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+              
+              \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MAPE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{error\PYZus{}mean}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MAE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{error\PYZus{}mean}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}859}]:} \PY{k}{def} \PY{n+nf}{calculate\PYZus{}forecast\PYZus{}errors2}\PY{p}{(}\PY{n}{dfStationPM10}\PY{p}{,} \PY{n}{prediction\PYZus{}size2}\PY{p}{)}\PY{p}{:}
+              
+              \PY{n}{dfStationPM10} \PY{o}{=} \PY{n}{dfStationPM10}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+              
+              \PY{n}{dfStationPM10}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfStationPM10}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{dfStationPM10}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yhat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{n}{dfStationPM10}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{100} \PY{o}{*} \PY{n}{dfStationPM10}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{dfStationPM10}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              
+              \PY{n}{predicted\PYZus{}part2} \PY{o}{=} \PY{n}{dfStationPM10}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{n}{prediction\PYZus{}size2}\PY{p}{:}\PY{p}{]}
+              
+              \PY{n}{error\PYZus{}mean} \PY{o}{=} \PY{k}{lambda} \PY{n}{error\PYZus{}name}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{predicted\PYZus{}part2}\PY{p}{[}\PY{n}{error\PYZus{}name}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+              
+              \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MAPE2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{error\PYZus{}mean}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MAE2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{error\PYZus{}mean}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}860}]:} \PY{c+c1}{\PYZsh{} Affiche MAPE et MAE}
+          \PY{c+c1}{\PYZsh{} Display MAPE et MAE}
+          
+          \PY{k}{for} \PY{n}{err\PYZus{}name}\PY{p}{,} \PY{n}{err\PYZus{}value} \PY{o+ow}{in} \PY{n}{calculate\PYZus{}forecast\PYZus{}errors}\PY{p}{(}\PY{n}{cmp\PYZus{}dfStationPM2\PYZus{}5}\PY{p}{,} \PY{n}{prediction\PYZus{}size}\PY{p}{)}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{err\PYZus{}name}\PY{p}{,} \PY{n}{err\PYZus{}value}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+MAPE 25.13286319954733
+MAE 19.880094790841937
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}861}]:} \PY{k}{for} \PY{n}{err\PYZus{}name2}\PY{p}{,} \PY{n}{err\PYZus{}value2} \PY{o+ow}{in} \PY{n}{calculate\PYZus{}forecast\PYZus{}errors2}\PY{p}{(}\PY{n}{cmp\PYZus{}dfStationPM10}\PY{p}{,} \PY{n}{prediction\PYZus{}size2}\PY{p}{)}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{err\PYZus{}name2}\PY{p}{,} \PY{n}{err\PYZus{}value2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+MAPE2 47.041877465796944
+MAE2 109.4194069854437
+
+    \end{Verbatim}
+
+    Bon on n'a le MAPE est à 25,13\% et le MAE à 19,88 franchement je trouve
+que c'est pas si mal! N'oubliez pas que j'ai pas du tout ajusté le
+modèle. Après bon c'est vrai que si quelqu'un voit 37 pourcent d'erreur,
+il peut avoir peur; mais je pense pouvoir faire mieux si j'ai le temps.
+
+Well, we don't have MAPE is at 25.13\% and MAE at 19.88, frankly I think
+it's not so bad! Remember, I didn't adjust the model at all. After all,
+it's true that if someone sees 25 percent error, they may be afraid; but
+I think I can do better if I have time.
+
+    Pour le MP10 sans commentaire, 50 pourcent d'erreur c'est énorme.
+Pourtant le MAE était bon .. Je manque de données, y'avais trop de vide
+de base. Ok je me justifie, d'accord j'ai compris.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}862}]:} \PY{c+c1}{\PYZsh{}Enfin, décrivons la prévision avec ses limites supérieure et inférieure:}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{17}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{cmp\PYZus{}dfStationPM2\PYZus{}5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yhat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{cmp\PYZus{}dfStationPM2\PYZus{}5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yhat\PYZus{}lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{cmp\PYZus{}dfStationPM2\PYZus{}5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yhat\PYZus{}upper}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{cmp\PYZus{}dfStationPM2\PYZus{}5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average PM2.5 Concentration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_110_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    On va quand l'affiché pour le PM10 par curiosité.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}863}]:} \PY{c+c1}{\PYZsh{}Enfin, décrivons la prévision avec ses limites supérieure et inférieure:}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{17}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{cmp\PYZus{}dfStationPM10}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yhat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{cmp\PYZus{}dfStationPM10}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yhat\PYZus{}lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{cmp\PYZus{}dfStationPM10}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yhat\PYZus{}upper}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{cmp\PYZus{}dfStationPM10}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average PM10 Concentration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_112_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{et-maintenant}{%
+\subsection{Et maintenant?}\label{et-maintenant}}
+
+\hypertarget{and-now}{%
+\subsection{And Now ?}\label{and-now}}
+
+    Ces données restent aujourd'hui insuffisantes sur la qualité de l'air au
+quotidien, même si elles permettent de voir une concentration de
+particules fines bien plus importantes dans le réseau métro qu'à
+l'extérieur. Seules des mesures en continu ou plus longues sur
+l'ensemble des lignes, ainsi que l'analyse d'autres polluants comme le
+monoxyde de carbone et les oxydes d'azote, par exemple, permettraient
+d'établir une cartographie précise de la qualité l'air dans le réseau
+métro. Interrogé sur ces questions, le Sytral indique poursuivre les
+relevés.
+
+L'autorité mettra également en place ``une centrale de mesure en continu
+des particules fines en fin 2019 sur le réseau métro TCL''. En mi-2019,
+l'INERIS rendra ses analyses sur ces mesures de 2017 reproduites
+ci-dessus. De même, un protocole harmonisé de mesures devrait être mis
+en place en fin 2019.
+
+Reste que comme regarder le thermomètre ne fait pas baisser la
+température, lire simplement ces données ne diminuera pas la
+concentration des particules fines. Dès lors quelles seront les actions
+mises en place dans le réseau métro ?Personnellement en tant qu'un
+pauvre petit étudiant de l'ESME SUDRIA, je ne saurais vous répondre.
+
+Mais, selon le Sytral : ``Une étude de modélisation de la production et
+de la migration des particules va également être lancée cette année, mi
+2019 afin de mieux cibler les actions permettant de réduire les sources
+d'émission et les zones d'accumulation'', de même, ``Les nouveaux
+matériels roulants prochainement livrés réduiront significativement le
+recours au freinage mécanique et donc l'émission de particules par
+frottement''. L'autorité régulatrice pourrait également nouer des
+partenariats avec des instituts de recherche pour trouver des solutions
+permettant de réduire la concentration de particules fines.
+
+S'il a fallu attendre 17 ans pour avoir de nouvelles mesures de la
+qualité de l'air dans le métro, désormais, il semble impensable que ce
+type de chiffres ne soient pas communiqués en continu d'ici 2020.
+
+La pollution devrait être l'un des enjeux de la prochaine campagne des
+municipales, et la qualité de l'air tout aussi importante qu'elle soit
+respirée à l'intérieur, extérieur, ou dans le réseau métro de Lyon. La
+pression citoyenne va se faire plus forte.
+
+Des systèmes pour évaluer son exposition au quotidien commencent déjà à
+apparaître, à l'image du capteur Flow de l'entreprise Plume.
+
+Ce petit objet connecté à attacher à son sac transforme chaque citoyen
+en capteur de pollution. Si les collectivités ne transmettent pas les
+chiffres, les start-ups le feront à leur place.
+
+Ce vendredi 12 avril, le Sytral annonce la mise en place d'une cellule
+dédiée à la question de la qualité de l'air( enfin hein), composée
+notamment de deux élus : Pierre Hémon (Europe Écologie Les Verts) et
+Christophe Quiniou (Les Républicains).
+
+Dans un premier temps, cette cellule se chargera de mettre en place des
+mesures permanentes à la station Saxe Gambetta. Cette dernière reste
+celle où la concentration de particules fines est la plus fortes (en
+partie à cause du freinage lorsque les rames de B sont bondées, donc
+plus lourdes). Dans cette station, les mesures effectuées en 2017
+montraient grâce à mon étude que la concentration en particules fines
+(PM10) et très fines (PM2,5) était quatre fois plus élevée par rapport à
+l'air extérieur au même moment. Enfin sa c'est que j'ai dis ..
+
+Ces futures mesures permanentes permettront également de voir quel sera
+l'impact de l'automatisation de la ligne B et l'arrivée de nouvelles
+rames qui pourraient contribuer à faire diminuer la concentration de
+particules fines sur le secteur.
+
+Par ailleurs, d'autres mesures seront régulièrement organisées dans le
+métro pour continuer l'état des lieux (Youphi), mais aussi observer les
+évolutions avec le changement de matériel et le cas échéant permettre de
+prendre des décisions pour améliorer la qualité de l'air dans le métro.
+
+Donc mon futur projet je pense serait, d'étudier ce matériel; enfin si
+j'ai le temps.
+
+    These data are still insufficient on daily air quality, even if they
+show a much higher concentration of fine particles in the metro network
+than outside. Only continuous or longer measurements on all lines, as
+well as the analysis of other pollutants such as carbon monoxide and
+nitrogen oxides, for example, would make it possible to establish an
+accurate map of air quality in the metro network. When asked about these
+questions, the Sytral indicated that it was continuing the surveys.
+
+The authority will also set up ``a continuous fine particle measurement
+centre by the end of 2019 on the TCL metro network''. In mid-2019,
+INERIS will submit its analyses on these 2017 measures reproduced above.
+Similarly, a harmonised measurement protocol should be in place by the
+end of 2019.
+
+However, since looking at the thermometer does not lower the
+temperature, simply reading these data will not reduce the concentration
+of fine particles. So what actions will be implemented in the metro
+network? Personally, as a poor little student of ESME SUDRIA, I cannot
+answer you.
+
+But, according to Sytral: ``A study to model particle production and
+migration will also be launched this year, mid-2019, in order to better
+target actions to reduce emission sources and accumulation areas'', as
+well as ``New rolling stock soon to be delivered will significantly
+reduce the use of mechanical braking and therefore the emission of
+particles by friction''. The regulatory authority could also partner
+with research institutes to find solutions to reduce the concentration
+of fine particles.
+
+While it took 17 years to get new measurements of air quality in the
+metro, it now seems unthinkable that this type of figure will not be
+reported continuously by 2020.
+
+Pollution should be one of the issues of the next municipal campaign,
+and air quality is just as important whether it is breathed indoors,
+outdoors, or in the Lyon metro network. Citizen pressure will increase.
+
+Systems to assess daily exposure are already beginning to appear, such
+as Plume's Flow sensor. This small connected object to attach to his bag
+transforms each citizen into a pollution sensor.
+
+If local authorities do not provide the figures, start-ups will do it
+for them.
+
+This Friday, April 12, the Sytral announces the establishment of a unit
+dedicated to the issue of air quality (finally eh), composed of two
+elected officials: Pierre Hémon (Europe Écologie Les Verts) and
+Christophe Quiniou (Les Républicains).
+
+As a first step, this cell will be responsible for setting up permanent
+measures at the Saxony Gambetta station. The latter remains the one with
+the highest concentration of fine particles (partly due to braking when
+the B trains are crowded, and therefore heavier). At this station,
+measurements made in 2017 showed that the concentration of fine (PM10)
+and very fine (PM2.5) particles was four times higher than in outdoor
+air at the same time. Well, that's what I said\ldots{}
+
+These future permanent measures will also make it possible to see the
+impact of the automation of Line B and the arrival of new trains that
+could help reduce the concentration of fine particles in the sector.
+
+In addition, other measures will be regularly organised in the metro to
+continue the inventory of fixtures (Youphi), but also to observe
+developments with the change of equipment and, if necessary, to take
+decisions to improve air quality in the metro.
+
+So my future project I think would be to study this material; well, if I
+have time.
+
+    Merci Pour cette lecture, j'èspère que vous avez aimé ma presentation.
+J'ai préferés le présenter de cette manière. Comme raconter une
+histoire, ma copine ``Anais''; le jour où je lui présenté l'un de mes
+projet concernant les parkins de Lyon.
+
+Vue qu'elle n'est pas du domaine, elle n'a absolument rien compris; et
+cela m'a attristé même avec son master en ecole de commerce.
+
+J'ai compris que nous faisons des travaux juste pour être compris
+qu'entre nous. J'ai voulus casser ça, c'est pour cela que j'ai fait un
+tel kernel, pour qu'il puisse être lu et compris par le premier venus.
+
+Lui donner envies de lire, comme lire un livre ou un journal.
+
+Encore merci pour votre lecture.
+
+Thank you for reading this, I hope you enjoyed my presentation. I
+preferred to present it that way. Like telling a story, my friend
+``Anais''; the day I presented her with one of my projects about the
+parkins of Lyon.
+
+Since she is not from the field, she understood absolutely nothing; and
+it saddened me even with her master's degree in business school.
+
+I understood that we do work just to be understood only between us. I
+wanted to break that, that's why I made such a kernel, so that it could
+be read and understood by the first people who came.
+
+Make her want to read, like reading a book or a newspaper.
+
+Thank you again for reading.
+
+Junholv OBO,
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
